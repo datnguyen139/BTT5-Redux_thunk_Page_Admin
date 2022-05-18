@@ -13,19 +13,24 @@ import { editUserAction, getUserId } from '../../reduxthunk/userAction';
 import { useParams } from "react-router-dom";
 
 const EditUser = () => {
-  const id = useParams().id
 
-  const [user, setUser] = useState<User>({
-    id: 0,
-    name: "",
-    address: "",
-    email: "",
-    contact: ""
-  })
-  const {name, address, email, contact} = user
+  const id  = useParams().id
+  const [user, setUser] = useState<any>({})
   const dispatch: ThunkDispatch<AppState, {}, AppActions> = useDispatch();
-  const users = useSelector((state: AppState)  =>  state.userReducer.Users);
+  const getuser = useSelector((state: AppState) =>  state.userReducer.Users);
   const navigate = useNavigate()
+
+  useEffect(() => {
+    dispatch(getUserId(Number(id)))
+    setUser(getuser)
+  },[])
+
+  useEffect(() => {
+    setUser(getuser)
+  }, [getuser])
+
+  const {name, address, email, contact} = user
+
 
   const handleInputValue = (e: any) => {
     let {name, value} = e.target
@@ -34,55 +39,56 @@ const EditUser = () => {
   }
 
   const submitUpdate = () => {
-    dispatch(editUserAction(id, user))
-    navigate("/")
+    dispatch(editUserAction(Number(id), user))
+    navigate("/Customer")
   }
 
   return (
     <div className="form-add-user">
-      <h2>Add User</h2>
+      <h2>Edit User</h2>
       <Box
           component="form"
           sx={{
             "& .MuiTextField-root": { display: 'block', m: 5, width: "100ch" }
-          }}
-          >
-          <TextField
-            required
-            type="text"
-            id="add-user"
-            name="name"
-            value={name}
-            placeholder="Name"
-            onChange={handleInputValue}
-          />
-          <TextField
-            required
-            type="text"
-            id="add-user"
-            name="address"
-            value={address}
-            placeholder="Address"
-            onChange={handleInputValue}
-          />
-          <TextField
-            required
-            type="text"
-            id="add-user"
-            name="email"
-            value={email}
-            placeholder="Email"
-            onChange={handleInputValue}
-          />
-          <TextField
-            required
-            type="text"
-            id="add-user"
-            name="contact"
-            value={contact}
-            placeholder="Contact"
-            onChange={handleInputValue}
-          />
+          }}>
+            <div>
+              <TextField
+                required
+                type="text"
+                id="add-user"
+                name="name"
+                value={name || ""}
+                placeholder="Name"
+                onChange={handleInputValue}
+              />
+              <TextField
+                required
+                type="text"
+                id="add-user"
+                name="address"
+                value={address || ""}
+                placeholder="Address"
+                onChange={handleInputValue}
+              />
+              <TextField
+                required
+                type="text"
+                id="add-user"
+                name="email"
+                value={email || ""}
+                placeholder="Email"
+                onChange={handleInputValue}
+              />
+              <TextField
+                required
+                type="text"
+                id="add-user"
+                name="contact"
+                value={contact || ""}
+                placeholder="Contact"
+                onChange={handleInputValue}
+              />
+            </div>
           <Button variant="contained"
           id="submit-add-user" type="submit"
           onClick={() => submitUpdate()}>Submit</Button>
