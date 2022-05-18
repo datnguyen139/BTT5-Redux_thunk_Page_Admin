@@ -1,39 +1,43 @@
 {
   "users": [
     {
-      "id": 4,
-      "name": "Torres",
-      "address": "Spain",
-      "email": "abc@gmailcom",
-      "contact": "9012379089"
-    },
-    {
-      "id": 5,
-      "name": "sadasdsa",
-      "address": "adsadsa",
-      "email": "dasdsadasd",
-      "contact": "ádásadsad"
-    },
-    {
-      "id": 6,
-      "name": "Torres",
-      "address": "Spain",
-      "email": "demo@minimals.cc",
-      "contact": "00-83289323"
-    },
-    {
       "id": 7,
-      "name": "Torres",
-      "address": "Spain",
-      "email": "demo@minimals.cc",
-      "contact": "00-83289323"
+      "name": "ádasdasdsadsaTorres",
+      "address": "Spaindsadsada",
+      "email": "admin123asdasdasda",
+      "contact": "00-83289323đâdada"
     },
     {
       "id": 8,
+      "name": "asdadsaf",
+      "address": "dfsfsdfsd",
+      "email": "fsdfdsfs",
+      "contact": "fsdfsdfs"
+    },
+    {
+      "id": 10,
+      "name": "adsadasdasa",
+      "address": "fsfsdfs",
+      "email": "sdfsdfsd",
+      "contact": "fdsfsdfsdf"
+    },
+    {
+      "id": 11,
+      "name": "dasdád",
+      "address": "dsadsadá",
+      "email": "saddsadá",
+      "contact": "dsadadasdas"
+    },
+    {
+      "id": 12,
       "name": "Torres",
       "address": "Spain",
-      "email": "demo@minimals.cc",
+      "email": "admin123",
       "contact": "00-83289323"
     }
-  ]
+  ],
+  "admin": {
+    "username": "admin123",
+    "password": "admin"
+  }
 }

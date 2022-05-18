@@ -3,12 +3,12 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
 import './addUser.css'
-import { User } from '../../reduxthunk/userActiontype';
+import { User } from '../../reduxthunk/Actiontype';
 import { useDispatch } from "react-redux";
 import { addUserAction } from "../../reduxthunk/userAction";
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../reduxthunk/store';
-import { AppActions } from '../../reduxthunk/userActiontype';
+import { AppActions } from '../../reduxthunk/Actiontype';
 import { useNavigate } from "react-router-dom";
 
 const AddUser = () => {
@@ -27,10 +27,10 @@ const AddUser = () => {
     let {name, value} = e.target
     setUser({...user,[name]: value})
   }
-
+  console.log(typeof user.name)
   const submitAddUser = () => {
     dispatch(addUserAction(user))
-    navigate("/")
+    navigate("/Customer")
   }
 
   return (
