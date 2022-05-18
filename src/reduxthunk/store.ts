@@ -2,7 +2,6 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk, { ThunkMiddleware } from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import userReducer from './userReducer';
-import todoReducer from './userReducer';
 import { AppActions } from './userActiontype';
 
 const logger = createLogger();

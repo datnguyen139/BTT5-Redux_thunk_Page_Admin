@@ -30,7 +30,7 @@ const AddUser = () => {
 
   const submitAddUser = () => {
     dispatch(addUserAction(user))
-    navigate("/")
+    navigate("/Customer")
   }
 
   return (
