@@ -1,11 +1,14 @@
+import { type } from 'os';
 import { Dispatch } from 'redux';
-import { AppActions } from './userActiontype';
+import { AppActions, ADD_USER } from './Actiontype';
 import {  FETCH_USER_REQUEST,
           FETCH_USER_SUCCESS,
-        } from './userActiontype';
-import { User } from './userActiontype';
+          Admin
+        } from './Actiontype';
+import { User } from './Actiontype';
 
 const url = "http://localhost:3001/users"
+const urladmin = "http://localhost:3001/admin"
 
 const requestUser = (): AppActions => ({
   type: FETCH_USER_REQUEST,
@@ -28,6 +31,7 @@ export const loadUsers = () => {
       .then((json) => dispatch(receiveUser(json)));
   };
 };
+
 
 export const addUserAction = (user: User) => {
   return (dispatch: Dispatch<AppActions>) => {

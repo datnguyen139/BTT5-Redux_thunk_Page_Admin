@@ -1,17 +1,17 @@
 import {
   User,
-  UserActionTypes,
+  ActionTypes,
   FETCH_USER_REQUEST,
   FETCH_USER_SUCCESS,
   FETCH_USER_FAILURE,
   DELETE_USER_ACTION,
   EDIT_USER_ACTION,
-  ADD_USER
-} from './userActiontype';
+  ADD_USER,
+} from './Actiontype';
 
 export interface UserState {
   loading: boolean;
-  Users: User[];
+  Users?: User[] | null;
   current?: User | null;
   error: string;
 }
@@ -23,7 +23,7 @@ export const defaultState: UserState = {
   current: null
 };
 
-const userReducer = ( state = defaultState, action: UserActionTypes): UserState => {
+const userReducer = ( state = defaultState, action: ActionTypes): UserState => {
   switch (action.type) {
     case FETCH_USER_REQUEST:
       return {
@@ -66,6 +66,7 @@ const userReducer = ( state = defaultState, action: UserActionTypes): UserState 
         Users: action.Users,
         error: ''
       }
+
     default:
       return state;
   }

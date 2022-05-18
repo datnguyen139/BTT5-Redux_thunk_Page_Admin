@@ -1,60 +1,43 @@
 {
   "users": [
     {
-      "0": {
-        "id": 2,
-        "name": "Henry",
-        "address": "France",
-        "email": "demo@minimals.cc",
-        "contact": "ádásadsad"
-      },
-      "1": {
-        "id": 3,
-        "name": "Torres",
-        "address": "sdsadsadsa",
-        "email": "demo@minimals.cc",
-        "contact": "00-83289323"
-      },
-      "2": {
-        "id": 4,
-        "name": "Torres",
-        "address": "sdsadsadsa",
-        "email": "demo@minimals.cc",
-        "contact": "00-83289323"
-      },
-      "3": {
-        "id": 5,
-        "name": "Torres",
-        "address": "Spain",
-        "email": "demo@minimals.cc",
-        "contact": "00-83289323"
-      },
-      "name": "fsdfsdfsasdsad",
-      "address": "sdadsadFrance",
-      "email": "đaaddemo@minimals.cc",
-      "contact": "00-83289323dasdsdsa",
-      "id": 2
+      "id": 7,
+      "name": "ádasdasdsadsaTorres",
+      "address": "Spaindsadsada",
+      "email": "admin123asdasdasda",
+      "contact": "00-83289323đâdada"
     },
     {
-      "id": 3,
+      "id": 8,
+      "name": "asdadsaf",
+      "address": "dfsfsdfsd",
+      "email": "fsdfdsfs",
+      "contact": "fsdfsdfs"
+    },
+    {
+      "id": 10,
+      "name": "adsadasdasa",
+      "address": "fsfsdfs",
+      "email": "sdfsdfsd",
+      "contact": "fdsfsdfsdf"
+    },
+    {
+      "id": 11,
+      "name": "dasdád",
+      "address": "dsadsadá",
+      "email": "saddsadá",
+      "contact": "dsadadasdas"
+    },
+    {
+      "id": 12,
       "name": "Torres",
-      "address": "sdsadsadsa",
-      "email": "demo@minimals.cc",
+      "address": "Spain",
+      "email": "admin123",
       "contact": "00-83289323"
-    },
-    {
-      "id": 4,
-      "name": "Torres",
-      "address": "sdsadsadsa",
-      "email": "demo@minimals.cc",
-      "contact": "00-83289323sasas"
-    },
-    {
-      "id": 5,
-      "name": "Torres",
-      "address": "France1",
-      "email": "demo@minimals.cc",
-      "contact": "ádásadsad"
     }
-  ]
+  ],
+  "admin": {
+    "username": "admin123",
+    "password": "admin"
+  }
 }

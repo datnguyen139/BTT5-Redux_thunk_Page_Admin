@@ -3,11 +3,10 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
 import './addUser.css'
-import { User } from '../../reduxthunk/userActiontype';
 import { useDispatch, useSelector } from "react-redux";
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../reduxthunk/store';
-import { AppActions } from '../../reduxthunk/userActiontype';
+import { AppActions } from '../../reduxthunk/Actiontype';
 import { useNavigate } from "react-router-dom";
 import { editUserAction, getUserId } from '../../reduxthunk/userAction';
 import { useParams } from "react-router-dom";
