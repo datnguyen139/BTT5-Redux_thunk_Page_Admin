@@ -1,10 +1,9 @@
 import { Dispatch } from 'redux';
-import { AppActions } from './userActiontype';
+import { AppActions} from './Actiontype';
 import {  FETCH_USER_REQUEST,
           FETCH_USER_SUCCESS,
-          FETCH_USER_FAILURE,
-          DELETE_USER_ACTION } from './userActiontype';
-import { User } from './userActiontype';
+        } from './Actiontype';
+import { User } from './Actiontype';
 
 const url = "http://localhost:3001/users"
 
@@ -13,12 +12,15 @@ const requestUser = (): AppActions => ({
   loading: true,
   Users: [],
   error: '',
+  currentUser: []
 });
+
 const receiveUser = (users: User[]): AppActions => ({
   type: FETCH_USER_SUCCESS,
   loading: false,
   Users: users,
   error: '',
+  currentUser: users
 });
 
 export const loadUsers = () => {
@@ -29,6 +31,7 @@ export const loadUsers = () => {
       .then((json) => dispatch(receiveUser(json)));
   };
 };
+
 
 export const addUserAction = (user: User) => {
   return (dispatch: Dispatch<AppActions>) => {
@@ -59,24 +62,25 @@ export const deleteUserAction = (id: number) => {
 
 export const getUserId = (id: number) => {
   return (dispatch: Dispatch<AppActions>) => {
-      fetch(url+'/'+id)
+    dispatch(requestUser())
+    fetch(url+'/'+id)
       .then((res) => res.json())
-      .then((json) => dispatch(receiveUser(json)));
+      .then((json) => {
+        dispatch(receiveUser(json))
+    });
   }
-
 }
 
-export const editUserAction = (id: string, user: User) => {
+export const editUserAction = (id: number, user: User) => {
   return (dispatch: Dispatch<AppActions>) => {
     var options = {
-      method: "PATCH",
+      method: "PUT",
       body: JSON.stringify(user),
       headers: {
         'Content-type': 'application/json; charset=UTF-8'
       }
     }
     fetch(url+'/'+id, options)
-    .then((res) => res.json())
-
+      .then((res) => res.json())
   }
 }
