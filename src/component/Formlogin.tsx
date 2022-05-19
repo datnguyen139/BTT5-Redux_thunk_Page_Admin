@@ -17,14 +17,10 @@ import { Admin } from '../reduxthunk/Actiontype';
 import { useNavigate } from 'react-router';
 
 export default function SignIn() {
-
   const navigate = useNavigate()
   const [username, setUsername] = useState<string>("")
   const [password, setPassword] = useState<string>("")
-  const [account, setAccount] = useState<Admin>({
-    username: "",
-    password: ""
-  })
+  const [account, setAccount] = useState<Admin[]>([])
   const acc = useSelector((state: AppState)  =>  state.adminReducer.admin);
   const dispatch: ThunkDispatch<AppState, {}, AppActions> = useDispatch();
 
@@ -44,58 +40,60 @@ export default function SignIn() {
   }
 
   const handleSubmit = () => {
-    if(acc.username == username && acc.password == password) {
-      alert("login success")
+    let new_account = account.filter((item: Admin) => item.username == username && item.password == password)
+    if(new_account.length > 0) {
       navigate("/Customer")
-
+    } else {
+      alert("Tai khoan hoac mat khau khong dung")
     }
   }
 
   return (
-        <div className="form-login">
-          <Box component="form"  noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              name="email"
-              onChange={usernameValue}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              type="password"
-              id="password"
-              onChange={passwordValue}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              // type="submit"
-              fullWidth
-              variant="contained"
-              onClick={() => handleSubmit()}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href='#' variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
-        </div>
+    <div className="form-login">
+      <h2>SignIn</h2>
+      <Box component="form"  noValidate sx={{ mt: 1 }}>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          name="email"
+          onChange={usernameValue}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          name="password"
+          type="password"
+          id="password"
+          onChange={passwordValue}
+        />
+        <FormControlLabel
+          control={<Checkbox value="remember" color="primary" />}
+          label="Remember me"
+        />
+        <Button
+          // type="submit"
+          fullWidth
+          variant="contained"
+          onClick={() => handleSubmit()}
+        >
+          Sign In
+        </Button>
+        <Grid container>
+          <Grid item xs>
+            <Link href="#" variant="body2">
+              Forgot password?
+            </Link>
+          </Grid>
+          <Grid item>
+            <Link href='http://localhost:3000/SignUp' variant="body2">
+              {"Don't have an account? Sign Up"}
+            </Link>
+          </Grid>
+        </Grid>
+      </Box>
+    </div>
   )
 }

@@ -1,13 +1,13 @@
-import { Admin, LOGIN_REQUEST, LOGIN_SUCCESS, ActionTypes } from "./Actiontype";
+import { Admin, LOGIN_REQUEST, LOGIN_SUCCESS, ActionTypes, SIGNUP } from './Actiontype';
 
 export interface AdminState {
   loading: boolean;
-  admin: Admin
+  admin: Admin[]
 }
 
 export const defaultState: AdminState = {
   loading: false,
-  admin: {username: "", password: ""}
+  admin: []
 }
 
 const adminReducer = (state = defaultState, action: ActionTypes): AdminState => {
@@ -15,10 +15,16 @@ const adminReducer = (state = defaultState, action: ActionTypes): AdminState => 
     case LOGIN_REQUEST: {
       return {
         loading: true,
-        admin: {username:"", password: ""}
+        admin: []
       }
     }
     case LOGIN_SUCCESS: {
+      return {
+        loading: false,
+        admin: action.admin
+      }
+    }
+    case SIGNUP: {
       return {
         loading: false,
         admin: action.admin

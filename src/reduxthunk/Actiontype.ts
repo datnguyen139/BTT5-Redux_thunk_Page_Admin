@@ -6,11 +6,7 @@ export const DELETE_USER_ACTION = "DELETE_USER_ACTION";
 export const EDIT_USER_ACTION = "EDIT_USER_ACTION"
 export const LOGIN_REQUEST = "LOGIN_REQUEST"
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS"
-
-export interface Admin {
-  username: string
-  password: string
-}
+export const SIGNUP = "SIGNUP"
 
 export interface User {
   id: number
@@ -24,13 +20,24 @@ export interface UserAsync {
   loading: boolean;
   Users: User[];
   error: string;
+  currentUser: User[]
+}
+
+export interface Admin {
+  id: number
+  username: string
+  password: string
+  email: string
 }
 
 export interface AdminAsync {
   loading: boolean
-  admin: Admin
+  admin: Admin[]
 }
 
+interface Signup extends AdminAsync {
+  type: typeof SIGNUP
+}
 interface Login_request extends AdminAsync {
   type: typeof LOGIN_REQUEST
 }
@@ -65,5 +72,6 @@ export type ActionTypes =
   | AddUserAction
   | Login_request
   | Login_success
+  | Signup
 
 export type AppActions = ActionTypes;

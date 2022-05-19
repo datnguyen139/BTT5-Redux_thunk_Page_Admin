@@ -6,11 +6,8 @@ import { AppActions } from './Actiontype';
 import adminReducer from './adminReducer';
 
 const logger = createLogger();
-
 export const rootReducer = combineReducers({ userReducer, adminReducer });
-
 export type AppState = ReturnType<typeof rootReducer>;
-
 export const store = createStore<AppState, AppActions, {}, {}> (
   rootReducer,
   applyMiddleware(thunk as ThunkMiddleware<AppActions>,

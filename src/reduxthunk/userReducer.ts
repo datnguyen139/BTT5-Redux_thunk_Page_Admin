@@ -10,17 +10,17 @@ import {
 } from './Actiontype';
 
 export interface UserState {
-  loading: boolean;
-  Users?: User[] | null;
-  current?: User | null;
-  error: string;
+  loading: boolean
+  Users: User[]
+  currentUser: User[] | User
+  error: string
 }
 
 export const defaultState: UserState = {
   loading: false,
   Users: [],
   error: '',
-  current: null
+  currentUser: []
 };
 
 const userReducer = ( state = defaultState, action: ActionTypes): UserState => {
@@ -29,46 +29,53 @@ const userReducer = ( state = defaultState, action: ActionTypes): UserState => {
       return {
         loading: true,
         Users: [],
-        error: ''
+        error: '',
+        currentUser: []
       };
 
     case FETCH_USER_SUCCESS:
       return {
         loading: false,
         Users: action.Users,
-        error: ''
+        error: '',
+        currentUser: action.currentUser
       };
 
     case FETCH_USER_FAILURE:
       return {
         loading: false,
         Users: [],
-        error: action.error
+        error: action.error,
+        currentUser: []
       };
 
     case ADD_USER:
       return {
         loading: false,
         Users: action.Users,
-        error: ''
+        error: '',
+        currentUser: action.currentUser
       }
 
     case DELETE_USER_ACTION:
       return {
         loading: false,
         Users: action.Users,
-        error: ''
+        error: '',
+        currentUser: action.currentUser
       }
 
     case EDIT_USER_ACTION:
       return {
         loading: false,
         Users: action.Users,
-        error: ''
+        error: '',
+        currentUser: action.currentUser
       }
 
     default:
       return state;
   }
 };
+
 export default userReducer
