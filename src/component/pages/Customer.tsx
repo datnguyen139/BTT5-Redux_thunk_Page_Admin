@@ -104,7 +104,7 @@ const Customer = () => {
   // search by name users
   let new_users: User[] = []
   !search.trim()? new_users = users :
-   new_users = users.filter(user => user.name.indexOf(search) > -1)
+   new_users = users.filter(user => user.name.indexOf(search) > -1 || user.address.indexOf(search) > -1)
 
   const logOut = () => {
     navigate("/")
@@ -155,7 +155,7 @@ const Customer = () => {
               <Input className="search" placeholder="search" sx={{width: "600px"}} onChange={getValueSearch} />
             <div className="table">
               <Button variant="contained" onClick={() => navigate("/AddUser")} className="add-user">Add User</Button>
-              <Button className="logout"><LogoutIcon onClick={() =>  logOut()} /></Button>
+              <Button className="logout" onClick={() =>  logOut()}><LogoutIcon /></Button>
               <TableContainer sx={{overflow: "scroll", height: "800px"}} component={Paper} >
                 <Table sx={{ width: "1500px" }} aria-label="customized table">
                   <TableHead>
