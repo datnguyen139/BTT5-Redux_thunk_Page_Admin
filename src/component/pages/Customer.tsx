@@ -101,9 +101,10 @@ const Customer = () => {
     return setSearch(event.target.value)
   }
 
+  // search by name users
   let new_users: User[] = []
   !search.trim()? new_users = users :
-   new_users = users.filter(user => user.name == search || user.id == Number(search) || user.address == search)
+   new_users = users.filter(user => user.name.indexOf(search) > -1)
 
   const logOut = () => {
     navigate("/")
