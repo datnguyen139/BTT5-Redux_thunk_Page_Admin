@@ -45,14 +45,18 @@ export default function SignUp() {
 
   const handleSubmit = () => {
     if (account.username.trim() === "" || account.email.trim() === "" || account.password.trim() === "" ) {
-      alert("please fill in the field")
+        alert("please fill in the field")
+    } else if(account.username.trim().length < 6 || account.password.trim().length < 6 ) {
+        alert("tai khoan va mat khau phai nhieu hon 6 ki tu")
     } else if (account.password !== confirmpassword) {
-      alert("Mat khau khong trung nhau")
+        alert("Mat khau khong trung nhau")
+    } else if(account.email.includes('@') === false ){
+        alert("vui long nhap dung email")
     } else {
-      dispatch(addAccountAdmin(account))
-      alert("dang ki thanh cong")
-      setAccount({id: 0, username: "", email: "", password: ""})
-      setConfirmpassword("")
+        dispatch(addAccountAdmin(account))
+        alert("dang ki thanh cong")
+        setAccount({id: 0, username: "", email: "", password: ""})
+        setConfirmpassword("")
     }
   };
 

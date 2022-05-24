@@ -63,3 +63,9 @@ h2 {
 #submit-add-user {
   margin-left: 310px;
 }
+
+.search {
+  position: relative;
+  top: 100px;
+  left: 500px;
+}

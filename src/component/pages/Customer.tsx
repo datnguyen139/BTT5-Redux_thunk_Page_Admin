@@ -27,6 +27,10 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { Input } from "@mui/material";
+import ReactDOM from 'react-dom';
+import { Search } from "@mui/icons-material";
+import { setTimeout } from "timers/promises";
 
 const drawerWidth: number = 600;
 
@@ -74,6 +78,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const Customer = () => {
   const [users, setUsers] = useState<User[]>([])
+  const [search, setSearch] = useState<string>("")
   const getusers: User[] = useSelector((state: AppState)  =>  state.userReducer.Users);
   const dispatch: ThunkDispatch<AppState, {}, AppActions> = useDispatch();
   const navigate = useNavigate();
@@ -91,6 +96,15 @@ const Customer = () => {
     const row_id = document.querySelector(`#row${id}`)
     row_id?.remove()
   }
+
+  const getValueSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    return setSearch(event.target.value)
+  }
+
+  // search by name users
+  let new_users: User[] = []
+  !search.trim()? new_users = users :
+   new_users = users.filter(user => user.name.indexOf(search) > -1 || user.address.indexOf(search) > -1)
 
   const logOut = () => {
     navigate("/")
@@ -138,9 +152,10 @@ const Customer = () => {
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto' }}>
+              <Input className="search" placeholder="search" sx={{width: "600px"}} onChange={getValueSearch} />
             <div className="table">
               <Button variant="contained" onClick={() => navigate("/AddUser")} className="add-user">Add User</Button>
-              <Button className="logout"><LogoutIcon onClick={() =>  logOut()} /></Button>
+              <Button className="logout" onClick={() =>  logOut()}><LogoutIcon /></Button>
               <TableContainer sx={{overflow: "scroll", height: "800px"}} component={Paper} >
                 <Table sx={{ width: "1500px" }} aria-label="customized table">
                   <TableHead>
@@ -154,7 +169,7 @@ const Customer = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {users.map((user) => (
+                    { new_users.map((user) => (
                     <TableRow id={`row${user.id}`} key={user.id}>
                       <TableCell align="center">{user.id}</TableCell>
                       <TableCell align="center">{user.name}</TableCell>

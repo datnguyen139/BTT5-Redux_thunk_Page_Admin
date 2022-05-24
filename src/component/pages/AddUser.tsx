@@ -74,7 +74,7 @@ const AddUser = () => {
           />
           <TextField
             required
-            type="text"
+            type="phone"
             id="add-user"
             name="contact"
             value={contact}
