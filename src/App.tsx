@@ -5,6 +5,7 @@ import AddUser from './component/pages/AddUser';
 import EditUser from './component/pages/EditUser';
 import SignIn from './component/Formlogin';
 import SignUp from './component/Formsignup';
+import Chat from './component/app-chat/Chat';
 
 const App = () => {
 
@@ -17,6 +18,7 @@ const App = () => {
           <Route path='/Customer' element={<Customer/>}/>
           <Route path='/AddUser' element={<AddUser/>}/>
           <Route path='/EditUser/:id' element={<EditUser/>}/>
+          <Route path="/Chat" element={<Chat/>}/>
         </Routes>
       </BrowserRouter>
     </div>

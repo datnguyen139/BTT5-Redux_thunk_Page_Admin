@@ -22,7 +22,6 @@ const EditUser = () => {
 
   useEffect(() => {
     dispatch(getUserId(Number(id)))
-    setUser(getuser)
   },[])
 
   useEffect(() => {

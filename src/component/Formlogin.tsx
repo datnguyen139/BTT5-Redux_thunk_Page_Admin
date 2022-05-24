@@ -21,7 +21,7 @@ export default function SignIn() {
   const [username, setUsername] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [account, setAccount] = useState<Admin[]>([])
-  const acc = useSelector((state: AppState)  =>  state.adminReducer.admin);
+  const account_admin = useSelector((state: AppState)  =>  state.adminReducer.admin);
   const dispatch: ThunkDispatch<AppState, {}, AppActions> = useDispatch();
 
   useEffect(() => {
@@ -29,8 +29,8 @@ export default function SignIn() {
   },[])
 
   useEffect(() => {
-    setAccount(acc)
-  }, [acc])
+    setAccount(account_admin)
+  }, [account_admin])
 
   const usernameValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value)
@@ -40,7 +40,7 @@ export default function SignIn() {
   }
 
   const handleSubmit = () => {
-    let new_account = account.filter((item: Admin) => item.username == username && item.password == password)
+    let new_account = account.filter((item: Admin) => item.username === username && item.password === password)
     if(new_account.length > 0) {
       navigate("/Customer")
     } else {
