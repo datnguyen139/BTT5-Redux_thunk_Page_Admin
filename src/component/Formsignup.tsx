@@ -12,53 +12,60 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useState, useEffect } from 'react';
-import { Admin } from '../reduxthunk/Actiontype';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../reduxthunk/store';
 import { AppActions } from '../reduxthunk/Actiontype';
 import { useDispatch } from 'react-redux';
 import { addAccountAdmin } from '../reduxthunk/adminAction';
+import { useFormik, Formik } from 'formik';
+import * as Yup from "yup"
 
 const theme = createTheme();
 
 export default function SignUp() {
 
   const dispatch: ThunkDispatch<AppState, {}, AppActions> = useDispatch();
-  const [confirmpassword, setConfirmpassword] = useState<string>("")
-  const [account, setAccount] = useState<Admin>({
-    id: 0,
-    username: "",
-    email: "",
-    password: ""
+
+  const formik = useFormik({
+    initialValues : {
+      id: 0,
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: Yup.object({
+      username: Yup.string()
+        .required("Required")
+        .min(7, "Must be 7 characters or more"),
+      email: Yup.string()
+        .required("Required")
+        .matches(
+          /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+          "Please enter a valid email address"
+        ),
+      password: Yup.string()
+        .required("Required")
+        .matches(
+          /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/,
+          "Password must be 7-19 characters and contain at least one letter, one number and a special character"
+        ),
+      confirmPassword: Yup.string()
+        .required("Required")
+        .oneOf([Yup.ref("password"), null], "Password must match"),
+    }),
+    onSubmit: (values, {resetForm}) => {
+      dispatch(addAccountAdmin(values))
+      alert("SignUp success")
+      resetForm({values: {
+        id: 0,
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: ""
+      }})
+    },
   })
-  const {username, email, password} = account
-
-  const handleInputValue = (e: any) => {
-    let {name, value} = e.target
-    setAccount({...account,[name]: value})
-  }
-
-  const confirmPassword = (e: any) => {
-    setConfirmpassword(e.target.value)
-  }
-
-  const handleSubmit = () => {
-    if (account.username.trim() === "" || account.email.trim() === "" || account.password.trim() === "" ) {
-        alert("please fill in the field")
-    } else if(account.username.trim().length < 6 || account.password.trim().length < 6 ) {
-        alert("tai khoan va mat khau phai nhieu hon 6 ki tu")
-    } else if (account.password !== confirmpassword) {
-        alert("Mat khau khong trung nhau")
-    } else if(account.email.includes('@') === false ){
-        alert("vui long nhap dung email")
-    } else {
-        dispatch(addAccountAdmin(account))
-        alert("dang ki thanh cong")
-        setAccount({id: 0, username: "", email: "", password: ""})
-        setConfirmpassword("")
-    }
-  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -78,28 +85,34 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 3 }}>
+          <Box>
+          <form onSubmit={formik.handleSubmit}>
             <Grid container spacing={2}>
-
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  value={username || ""}
+                  value={formik.values.username}
                   name="username"
-                  onChange={handleInputValue}
+                  onChange={formik.handleChange}
                   placeholder="Username"
                 />
+                {formik.errors.username && (
+                <p className="error"> {formik.errors.username} </p>
+                )}
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
                   name="email"
-                  value={email || ""}
-                  onChange={handleInputValue}
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
                   placeholder="Email"
                 />
+                {formik.errors.email && (
+                <p className="error"> {formik.errors.email} </p>
+                )}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -107,38 +120,44 @@ export default function SignUp() {
                   fullWidth
                   name="password"
                   type="password"
-                  value={password || ""}
-                  onChange={handleInputValue}
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
                   placeholder="Password"
                 />
+                  {formik.errors.password && (
+                <p className="error"> {formik.errors.password} </p>
+                )}
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  name="confirm-password"
+                  name="confirmPassword"
                   type="password"
-                  value={confirmpassword || ""}
-                  onChange={confirmPassword}
+                  value={formik.values.confirmPassword}
+                  onChange={formik.handleChange}
                   placeholder="Confirm password"
                 />
+                  {formik.errors.confirmPassword && (
+                <p className="error"> {formik.errors.confirmPassword} </p>
+                )}
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button
-              type="button"
+              type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={() => handleSubmit()}
             >
               Sign Up
             </Button>
+            </form>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="http://localhost:3000" variant="body2">

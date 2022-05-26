@@ -5,7 +5,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../reduxthunk/store';
 import { AppActions } from '../../reduxthunk/Actiontype';
 import { User } from '../../reduxthunk/Actiontype';
-import { deleteUserAction,loadUsers } from '../../reduxthunk/userAction';
+import { deleteUserAction, loadUsers } from '../../reduxthunk/userAction';
 import { useSelector, useDispatch } from 'react-redux';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
@@ -86,11 +86,11 @@ const Customer = () => {
     setNumberOfPage(number)
   },[users])
 
-  const deleteUser = (id: number): any => {
+  const deleteUser = (id: number): void => {
     window.confirm("Ban chac chan muon xoa?")
     dispatch(deleteUserAction(id))
-    const row_id = document.querySelector(`#row${id}`)
-    row_id?.remove()
+    setTimeout(() => {dispatch(loadUsers())},100)
+
   }
 
   const getValueSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -117,7 +117,7 @@ const Customer = () => {
   return (
     <div>
       <Box sx={{ display: 'flex' }}>
-        <AppBar sx={{height: "40px"}}>
+        <AppBar sx={{height: "40px", width: "100%"}}>
           <div className="dash-board"><p>DashBoard</p></div>
           <Button className="logout" onClick={() =>  logOut()}><Avatar sx={{ color: "blue" }}>T</Avatar></Button>
         </AppBar>
@@ -167,7 +167,7 @@ const Customer = () => {
                       <StyledTableCell align="center">Action</StyledTableCell>
                     </TableRow>
                   </TableHead>
-                  <TableBody sx={{padding: "0px"}}>
+                  <TableBody id="tablebody" sx={{padding: "0px"}}>
                     { new_users.slice(firstItem,lastItem).map((user) => (
                     <TableRow id={`row${user.id}`} key={user.id}>
                       <TableCell id="tablecell" align="center">{user.id}</TableCell>
@@ -186,7 +186,7 @@ const Customer = () => {
             </div>
             </Box>
           </Box>
-          <Stack spacing={2}>
+          <Stack spacing={2} sx={{marginLeft: "800px"}}>
             <Pagination count={numberOfPage} onChange={changeValuePage} color="primary" />
           </Stack>
       </div>

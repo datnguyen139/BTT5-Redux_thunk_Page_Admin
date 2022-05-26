@@ -23,12 +23,12 @@ const receiveUser = (users: User[]): AppActions => ({
   currentUser: users
 });
 
-export const loadUsers = () => {
-  return (dispatch: Dispatch<AppActions>) => {
+ export const loadUsers = () => {
+  return async (dispatch: Dispatch<AppActions>) => {
     dispatch(requestUser());
-    return fetch(url)
+    return await fetch(url)
       .then((res) => res.json())
-      .then((json) => dispatch(receiveUser(json)));
+      .then((json) =>  dispatch(receiveUser(json)));
   };
 };
 
@@ -61,9 +61,9 @@ export const deleteUserAction = (id: number) => {
 }
 
 export const getUserId = (id: number) => {
-  return (dispatch: Dispatch<AppActions>) => {
+  return async (dispatch: Dispatch<AppActions>) => {
     dispatch(requestUser())
-    fetch(url+'/'+id)
+    await fetch(url+'/'+id)
       .then((res) => res.json())
       .then((json) => {
         dispatch(receiveUser(json))

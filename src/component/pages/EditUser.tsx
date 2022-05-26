@@ -6,19 +6,19 @@ import './user.css'
 import { useDispatch, useSelector } from "react-redux";
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../reduxthunk/store';
-import { AppActions } from '../../reduxthunk/Actiontype';
+import { AppActions, User } from '../../reduxthunk/Actiontype';
 import { useNavigate } from "react-router-dom";
 import { editUserAction, getUserId, loadUsers } from '../../reduxthunk/userAction';
 import { useParams } from "react-router-dom";
-import { User } from "../../reduxthunk/Actiontype";
+import { useFormik } from "formik";
+import * as Yup from "yup"
 
 const EditUser = () => {
   const id  = useParams().id
   const dispatch: ThunkDispatch<AppState, {}, AppActions> = useDispatch();
   const getuser: User[] | User = useSelector((state: AppState) =>  state.userReducer.currentUser);
   const navigate = useNavigate()
-  const [user, setUser] = useState<any>({id: 0, name: "", address: "", email: "", contact: ""})
-  const {name, address, email, contact} = user
+  const [user, setUser] = useState<any>({id1: 0, name: "", address: "", email: "", contact: ""})
 
   useEffect(() => {
     dispatch(getUserId(Number(id)))
@@ -28,66 +28,104 @@ const EditUser = () => {
     setUser(getuser)
   }, [getuser])
 
-  const handleInputValue = (e: any) => {
-    let {name, value} = e.target
-    setUser({...user,[name]: value})
+  const value = {
+    id: user.id,
+    name: user.name || "" ,
+    address: user.address || "",
+    email: user.email || "",
+    contact: user.contact || ""
   }
-
-  const submitUpdate = () => {
-    dispatch(editUserAction(Number(id), user))
-    dispatch(loadUsers())
-    navigate("/Customer")
-  }
-
+  const formik: any = useFormik({
+    enableReinitialize: true,
+    initialValues: value,
+    validationSchema: Yup.object({
+      name: Yup.string()
+        .required("Required")
+        .min(4, "Must be 4 characters or more"),
+      address: Yup.string()
+        .required("Required")
+        .min(10, "Must be 10 characters or more"),
+      email: Yup.string()
+        .required("Required")
+        .min(15,"Please enter a valid email address")
+        .matches(
+          /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+          "Please enter a valid email address"
+        ),
+          contact: Yup.string()
+        .required("Required")
+        .matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+        "Contact is not valid")
+        .min(10,"Must be 10 number")
+        .max(10,"Must be 10 number")
+    }),
+    onSubmit: async (values) => {
+      dispatch(editUserAction(Number(id), values))
+      await dispatch(loadUsers())
+      navigate("/Customer")
+    },
+  });
   return (
     <div className="form-add-user">
       <h2 className="edituser">Edit User</h2>
       <Box
-          component="form"
           sx={{
             "& .MuiTextField-root": { display: 'block', m: 5, width: "100ch" }
           }}>
-            <div>
+            <form onSubmit={formik.handleSubmit}>
               <TextField
                 required
                 type="text"
                 id="add-user"
                 name="name"
-                value={name || ""}
+                value={formik.values.name}
                 placeholder="Name"
-                onChange={handleInputValue}
+                onChange={formik.handleChange}
               />
+               {formik.errors.name && (
+              <p className="errorMsg"> {formik.errors.name} </p>
+              )}
               <TextField
                 required
                 type="text"
                 id="add-user"
                 name="address"
-                value={address || ""}
+                value={formik.values.address}
                 placeholder="Address"
-                onChange={handleInputValue}
+                onChange={formik.handleChange}
               />
+                 {formik.errors.address && (
+              <p className="errorMsg"> {formik.errors.address} </p>
+              )}
               <TextField
                 required
                 type="text"
                 id="add-user"
                 name="email"
-                value={email || ""}
+                value={formik.values.email}
                 placeholder="Email"
-                onChange={handleInputValue}
+                onChange={formik.handleChange}
               />
+              {formik.errors.email && (
+              <p className="errorMsg"> {formik.errors.email} </p>
+              )}
               <TextField
                 required
                 type="text"
                 id="add-user"
                 name="contact"
-                value={contact || ""}
+                value={formik.values.contact}
                 placeholder="Contact"
-                onChange={handleInputValue}
+                onChange={formik.handleChange}
               />
-            </div>
-          <Button variant="contained"
-          id="submit-add-user" type="button"
-          onClick={() => submitUpdate()}>Submit</Button>
+               {formik.errors.contact && (
+              <p className="errorMsg"> {formik.errors.contact} </p>
+              )}
+            <Button variant="contained"
+            id="submit-add-user" type="submit"
+            >Submit
+            </Button>
+          </form>
       </Box>
     </div>
   )

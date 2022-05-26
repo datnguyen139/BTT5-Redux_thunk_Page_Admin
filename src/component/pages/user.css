@@ -1,4 +1,4 @@
-* {
+body {
   margin: auto;
 }
 
@@ -14,7 +14,7 @@ table {
 
 .list {
   position: relative;
-  top: -290px;
+  top: 40px;
 }
 
 .add-user {
@@ -73,10 +73,18 @@ h2 {
 }
 .dash-board {
   font-size: 25px;
-  position: relative;
-  left: -850px;
-  top: 10px;
 }
 .tablecell {
   padding: 10px;
+}
+.errorMsg {
+  max-width: 100%;
+  font-size:0.75rem;
+  color:rgb(248, 106, 106);
+  margin-left: 43px;
+}
+.error {
+  max-width: 100%;
+  font-size:0.75rem;
+  color:rgb(248, 106, 106);
 }

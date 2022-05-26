@@ -75,3 +75,8 @@ export type ActionTypes =
   | Signup
 
 export type AppActions = ActionTypes;
+
+export interface IInputWrapperProps {
+  error?: string;
+  children?: JSX.Element;
+}
