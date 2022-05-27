@@ -7,7 +7,7 @@ import {
   DELETE_USER_ACTION,
   EDIT_USER_ACTION,
   ADD_USER,
-} from './Actiontype';
+} from '../Actiontype';
 
 export interface UserState {
   loading: boolean

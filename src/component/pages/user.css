@@ -72,7 +72,9 @@ h2 {
   left: 500px;
 }
 .dash-board {
+  margin-top: 5px;
   font-size: 25px;
+  margin-left: 20px;
 }
 .tablecell {
   padding: 10px;

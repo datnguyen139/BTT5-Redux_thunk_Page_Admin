@@ -1,9 +1,9 @@
 import { Dispatch } from 'redux';
-import { AppActions} from './Actiontype';
+import { AppActions} from '../Actiontype';
 import {  FETCH_USER_REQUEST,
           FETCH_USER_SUCCESS,
-        } from './Actiontype';
-import { User } from './Actiontype';
+        } from '../Actiontype';
+import { User } from '../Actiontype';
 
 const url = "http://localhost:3001/users"
 

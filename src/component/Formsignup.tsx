@@ -16,7 +16,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../reduxthunk/store';
 import { AppActions } from '../reduxthunk/Actiontype';
 import { useDispatch } from 'react-redux';
-import { addAccountAdmin } from '../reduxthunk/adminAction';
+import { addAccountAdmin } from '../reduxthunk/page-admin/adminAction';
 import { useFormik, Formik } from 'formik';
 import * as Yup from "yup"
 
@@ -33,6 +33,7 @@ export default function SignUp() {
       email: "",
       password: "",
       confirmPassword: "",
+      status: "off"
     },
     validationSchema: Yup.object({
       username: Yup.string()
@@ -62,7 +63,8 @@ export default function SignUp() {
         username: "",
         email: "",
         password: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        status: "off"
       }})
     },
   })

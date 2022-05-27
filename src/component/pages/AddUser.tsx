@@ -3,18 +3,19 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from "@mui/material/Button"
 import './user.css'
-import { User } from '../../reduxthunk/Actiontype'
 import { useDispatch } from "react-redux"
-import { addUserAction } from "../../reduxthunk/userAction"
+import { addUserAction } from "../../reduxthunk/page-admin/userAction"
 import { ThunkDispatch } from 'redux-thunk'
 import { AppState } from '../../reduxthunk/store'
 import { AppActions } from '../../reduxthunk/Actiontype'
 import { useNavigate } from "react-router-dom"
+import { useParams } from "react-router"
 import { useFormik } from "formik"
 import * as Yup from "yup"
 
 
 const AddUser = () => {
+  const username = useParams().username
   const dispatch: ThunkDispatch<AppState, {}, AppActions> = useDispatch()
   const navigate = useNavigate()
   const formik = useFormik({
@@ -48,7 +49,7 @@ const AddUser = () => {
     }),
     onSubmit: (values) => {
       dispatch(addUserAction(values))
-      navigate("/Customer")
+      navigate(`/Customer/${username}`)
     },
   });
 

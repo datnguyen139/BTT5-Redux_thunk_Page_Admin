@@ -12,7 +12,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '../reduxthunk/store';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppActions } from '../reduxthunk/Actiontype';
-import { loadAdmin } from '../reduxthunk/adminAction';
+import { loadAdmin, updateStatus } from '../reduxthunk/page-admin/adminAction';
+import { collectionUser } from '../reduxthunk/app-chat/chatAction'
 import { Admin } from '../reduxthunk/Actiontype';
 import { useNavigate } from 'react-router';
 
@@ -20,7 +21,7 @@ export default function SignIn() {
   const navigate = useNavigate()
   const [username, setUsername] = useState<string>("")
   const [password, setPassword] = useState<string>("")
-  const [account, setAccount] = useState<Admin[]>([])
+  const [listAccount, setListAccount] = useState<Admin[]>([])
   const account_admin = useSelector((state: AppState)  =>  state.adminReducer.admin);
   const dispatch: ThunkDispatch<AppState, {}, AppActions> = useDispatch();
 
@@ -29,7 +30,7 @@ export default function SignIn() {
   },[])
 
   useEffect(() => {
-    setAccount(account_admin)
+    setListAccount(account_admin)
   }, [account_admin])
 
   const usernameValue = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,11 +39,13 @@ export default function SignIn() {
   const passwordValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value)
   }
-
   const handleSubmit = () => {
-    let new_account = account.filter((item: Admin) => item.username === username && item.password === password)
-    if(new_account.length > 0) {
-      navigate("/Customer")
+    let check_account = listAccount.filter((item: Admin) =>  item.username === username && item.password === password)
+    if(check_account.length > 0) {
+      check_account[0].status = "onl"
+      dispatch(collectionUser(check_account[0]))
+      dispatch(updateStatus(check_account[0].id, check_account[0]))
+      navigate(`/Customer/${check_account[0].username}`)
     } else {
       alert("Tai khoan hoac mat khau khong dung")
     }

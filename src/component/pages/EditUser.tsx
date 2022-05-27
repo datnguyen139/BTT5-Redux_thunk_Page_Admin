@@ -8,13 +8,16 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../reduxthunk/store';
 import { AppActions, User } from '../../reduxthunk/Actiontype';
 import { useNavigate } from "react-router-dom";
-import { editUserAction, getUserId, loadUsers } from '../../reduxthunk/userAction';
+import { editUserAction, getUserId, loadUsers } from '../../reduxthunk/page-admin/userAction';
 import { useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup"
+import { useLocation } from "react-router";
 
 const EditUser = () => {
   const id  = useParams().id
+  const location = useLocation().pathname.slice(10,-2)
+  console.log(location)
   const dispatch: ThunkDispatch<AppState, {}, AppActions> = useDispatch();
   const getuser: User[] | User = useSelector((state: AppState) =>  state.userReducer.currentUser);
   const navigate = useNavigate()
@@ -62,7 +65,7 @@ const EditUser = () => {
     onSubmit: async (values) => {
       dispatch(editUserAction(Number(id), values))
       await dispatch(loadUsers())
-      navigate("/Customer")
+      navigate(`/Customer/${location}`)
     },
   });
   return (

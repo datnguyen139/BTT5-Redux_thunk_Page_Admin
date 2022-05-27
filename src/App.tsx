@@ -5,7 +5,7 @@ import AddUser from './component/pages/AddUser';
 import EditUser from './component/pages/EditUser';
 import SignIn from './component/Formlogin';
 import SignUp from './component/Formsignup';
-import Chat from './component/app-chat/Chat';
+import Chat from './component/app-chat/AppChat';
 
 const App = () => {
 
@@ -15,10 +15,10 @@ const App = () => {
         <Routes>
           <Route path="/" element={<SignIn/>}/>
           <Route path="/SignUp" element={<SignUp/>}/>
-          <Route path='/Customer' element={<Customer/>}/>
-          <Route path='/AddUser' element={<AddUser/>}/>
-          <Route path='/EditUser/:id' element={<EditUser/>}/>
-          <Route path="/Chat" element={<Chat/>}/>
+          <Route path='/Customer/:username' element={<Customer/>}/>
+          <Route path='/AddUser/:username' element={<AddUser/>}/>
+          <Route path='/EditUser/:username/:id' element={<EditUser/>}/>
+          <Route path="/Chat/:username" element={<Chat/>}/>
         </Routes>
       </BrowserRouter>
     </div>

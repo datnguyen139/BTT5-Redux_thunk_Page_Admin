@@ -4,17 +4,90 @@
   box-sizing: border-box;
 }
 
+.Container {
+  bottom: 3px solid black;
+}
+
 .list-chat {
   position: relative;
+  border: 2px solid rgb(255, 255, 255);
 }
 .list-item {
   position: relative;
   top: -20px;
   margin-left: 0;
+  background-color: whitesmoke;
 }
 #list-user {
   position: initial;
-  height: 940px;
+  height: 920px;
   padding-top: 55px;
   overflow: scroll;
+  background-color: #fff;
+
+}
+.Box-Chat {
+  padding-top: 40px;
+  display: block;
+  background-color: whitesmoke;
+  width: 1270px;
+  height: 928px;;
+}
+.App-Bar {
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+  height: 70px;
+  background-color: rgb(255, 250, 250);
+  border: 1px solid rgb(206, 206, 206);
+  box-shadow: 2px snow;
+}
+.avatar {
+  display: inline-flex;
+  margin-left: 20px;
+  margin-top: 14px;
+}
+.UserName {
+  margin-left: 10px;
+  margin-top: 10px;
+  font-family: fantasy;
+  font-size: 18px;
+}
+
+.Item-chat {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 200px;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.view-message {
+  height: 710px;
+}
+
+.bottom {
+  margin-left: 30px;
+  display: flex;
+}
+
+#send {
+  position: absolute;
+  top: 3px;
+  left: -10px;
+}
+
+#emoticon {
+  left: -40px;
+  top: 8px;
+  position: relative;
+}
+
+.notification {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: large;
+  text-align: center;
+  font-weight: 500;
+  margin-top: 430px;
 }

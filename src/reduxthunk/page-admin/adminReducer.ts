@@ -1,4 +1,4 @@
-import { Admin, LOGIN_REQUEST, LOGIN_SUCCESS, ActionTypes, SIGNUP } from './Actiontype';
+import { Admin, LOGIN_REQUEST, LOGIN_SUCCESS, ActionTypes, SIGNUP, UPDATE_STATUS, COLLECT_USER } from '../Actiontype';
 
 export interface AdminState {
   loading: boolean;
@@ -25,6 +25,18 @@ const adminReducer = (state = defaultState, action: ActionTypes): AdminState => 
       }
     }
     case SIGNUP: {
+      return {
+        loading: false,
+        admin: action.admin
+      }
+    }
+    case UPDATE_STATUS: {
+      return {
+        loading: false,
+        admin: action.admin
+      }
+    }
+    case COLLECT_USER: {
       return {
         loading: false,
         admin: action.admin

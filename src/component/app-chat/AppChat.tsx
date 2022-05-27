@@ -12,6 +12,8 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
 import AlignItemsList from "./ListUserChat";
+import BoxChat from "./BoxChat";
+import { useParams } from 'react-router';
 
 const drawerWidth: number = 600;
 
@@ -39,21 +41,23 @@ const AppBar = styled(MuiAppBar, {
 
 const Chat = () => {
   const navigate = useNavigate();
+  const username = useParams().username
+
   return (
-    <div>
+    <div className="Container">
       <Box sx={{ display: 'flex', height: '100vh' }}>
         <AppBar sx={{height: "40px"}}>
           <div className="dash-board"><p>Chat</p></div>
         </AppBar>
         <div className="list-item">
           <List sx={{width: '210px', top: "64px"}}>
-            <ListItemButton onClick={() => navigate("/Customer")}>
+            <ListItemButton onClick={() => navigate(`/Customer/${username}`)}>
               <ListItemIcon>
                 <DashboardIcon />
               </ListItemIcon>
               <ListItemText primary="Dashboard"/>
             </ListItemButton>
-            <ListItemButton onClick={() => navigate("/Chat")}>
+            <ListItemButton >
               <ListItemIcon>
                 <ShoppingCartIcon />
               </ListItemIcon>
@@ -69,6 +73,9 @@ const Chat = () => {
         </div>
         <div className="list-chat">
           <AlignItemsList/>
+        </div>
+        <div className="box-chat">
+          <BoxChat />
         </div>
       </Box>
     </div>

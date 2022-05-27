@@ -1,11 +1,11 @@
 import "./user.css"
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from 'react-router-dom';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../reduxthunk/store';
 import { AppActions } from '../../reduxthunk/Actiontype';
-import { User } from '../../reduxthunk/Actiontype';
-import { deleteUserAction, loadUsers } from '../../reduxthunk/userAction';
+import { User, Admin } from '../../reduxthunk/Actiontype';
+import { deleteUserAction, loadUsers } from '../../reduxthunk/page-admin/userAction';
 import { useSelector, useDispatch } from 'react-redux';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
@@ -29,6 +29,7 @@ import { Input } from "@mui/material";
 import { Avatar } from "@mui/material";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import { loadAdmin, updateStatus } from '../../reduxthunk/page-admin/adminAction';
 
 const drawerWidth: number = 240;
 
@@ -65,9 +66,12 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const Customer = () => {
+  const username = useParams().username
   const [users, setUsers] = useState<User[]>([])
+  const [account, setAccount] = useState<Admin[]>([])
   const [search, setSearch] = useState<string>("")
   const getusers: User[] = useSelector((state: AppState)  =>  state.userReducer.Users);
+  const getaccount: Admin[] = useSelector((state: AppState) => state.adminReducer.admin)
   const dispatch: ThunkDispatch<AppState, {}, AppActions> = useDispatch();
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -75,11 +79,13 @@ const Customer = () => {
 
   useEffect(() => {
     dispatch(loadUsers())
+    dispatch(loadAdmin())
   },[])
 
   useEffect(() => {
     setUsers(getusers)
-  },[getusers])
+    setAccount(getaccount)
+  },[getusers, getaccount])
 
   useEffect(() => {
     const number: number = Math.ceil(users.length / 10)
@@ -95,9 +101,8 @@ const Customer = () => {
 
   const getValueSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     return setSearch(event.target.value)
+
   }
-
-
 
   // search by name users
   let new_users: User[] = []
@@ -105,6 +110,9 @@ const Customer = () => {
   new_users = users.filter(user => user.name.indexOf(search) > -1 || user.address.indexOf(search) > -1)
 
   const logOut = () => {
+    const account_online = account.filter((item) => item.status === "onl" && item.username === username)
+    account_online[0].status = "off"
+    dispatch(updateStatus(account_online[0].id, account_online[0]))
     navigate("/")
   }
 
@@ -119,7 +127,7 @@ const Customer = () => {
       <Box sx={{ display: 'flex' }}>
         <AppBar sx={{height: "40px", width: "100%"}}>
           <div className="dash-board"><p>DashBoard</p></div>
-          <Button className="logout" onClick={() =>  logOut()}><Avatar sx={{ color: "blue" }}>T</Avatar></Button>
+          <Button className="logout" onClick={() =>  logOut()}><Avatar sx={{ color: "blue" }}></Avatar></Button>
         </AppBar>
         <div className="list">
           <List sx={{width: '210px'}}>
@@ -129,7 +137,7 @@ const Customer = () => {
               </ListItemIcon>
               <ListItemText primary="Dashboard"/>
             </ListItemButton>
-            <ListItemButton onClick={() => navigate("/Chat")}>
+            <ListItemButton onClick={() => navigate(`/Chat/${username}`)}>
               <ListItemIcon>
                 <ShoppingCartIcon />
               </ListItemIcon>
@@ -154,7 +162,7 @@ const Customer = () => {
             }}>
               <Input className="search" placeholder="search" sx={{width: "600px"}} onChange={getValueSearch} />
             <div className="table">
-              <Button variant="contained" onClick={() => navigate("/AddUser")} className="add-user">Add User</Button>
+              <Button variant="contained" onClick={() => navigate(`/AddUser/${username}`)} className="add-user">Add User</Button>
               <TableContainer className="table-container" sx={{ height: "750px", overflow: "visible"}} component={Paper} >
                 <Table sx={{ width: "1500px" }} aria-label="customized table">
                   <TableHead sx={{padding: "12px"}}>
@@ -177,7 +185,7 @@ const Customer = () => {
                       <TableCell id="tablecell" align="center">{user.contact}</TableCell>
                       <TableCell id="tablecell" align="center">
                         <Button id={`${user.id}`} className="delete" onClick={() => deleteUser(user.id)} >Delete</Button>
-                        <Button className="edit" style={{marginLeft: "10px"}} onClick={() => navigate(`/EditUser/${user.id}`)}>Edit</Button>
+                        <Button className="edit" style={{marginLeft: "10px"}} onClick={() => navigate(`/EditUser/${username}/${user.id}`)}>Edit</Button>
                       </TableCell>
                     </TableRow> ))}
                   </TableBody>
