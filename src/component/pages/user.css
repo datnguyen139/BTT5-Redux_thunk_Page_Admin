@@ -1,15 +1,92 @@
-* {
+body {
   margin: auto;
 }
 
 table {
   padding: 0px;
-  margin-top: 100px;
-  width: 70%;
+  margin-top: 50px;
+  width: 80%;
+
 }
-/* button {
+#drawer {
+  width: 210px;
+}
+
+.list {
   position: relative;
-  width: 60px;
-  height: 30px;
-  left: 80px;
-} */
+  top: 40px;
+}
+
+.add-user {
+  position: relative;
+  top: 20px;
+  left: 17px;
+}
+
+.table {
+  padding: 12px;
+  margin-left: 10px;
+  background-color: #fff;
+}
+
+.form-login {
+  width: 600px;
+  margin: 200px auto auto auto;
+}
+
+.logout {
+  position: relative;
+  top: -35px;
+  right: -850px;
+  float: right;
+}
+
+h2 {
+  text-align: center;
+}
+
+.adduser {
+  margin-right: 600px;
+}
+
+.edituser {
+  margin-right: 600px;
+}
+
+.form-add-user {
+  margin-top: 200px;
+  margin-left: 554px;
+}
+
+#add-user {
+  width: 600px;
+}
+
+#submit-add-user {
+  margin-left: 310px;
+}
+
+.search {
+  position: relative;
+  top: 60px;
+  left: 500px;
+}
+.dash-board {
+  margin-top: 5px;
+  font-size: 25px;
+  margin-left: 20px;
+}
+.tablecell {
+  padding: 10px;
+}
+.errorMsg {
+  max-width: 100%;
+  font-size:0.75rem;
+  color:rgb(248, 106, 106);
+  margin-left: 43px;
+}
+.error {
+  max-width: 100%;
+  font-size:0.75rem;
+  color:rgb(248, 106, 106);
+}
